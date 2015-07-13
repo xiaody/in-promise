@@ -1,0 +1,21 @@
+{
+  "name": "in-promise",
+  "main": "index.js",
+  "version": "0.1.0",
+  "authors": [
+    "xiaodongyang <xiaodongyang@meituan.com>"
+  ],
+  "description": "A minimal Promise/A+ implementation",
+  "keywords": [
+    "promise",
+    "promises-aplus"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

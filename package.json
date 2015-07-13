@@ -1,0 +1,20 @@
+{
+  "name": "in-promise",
+  "version": "0.1.0",
+  "description": "A minimal Promise/A+ implementation for browsers",
+  "main": "index.js",
+  "scripts": {
+    "test": "promises-aplus-tests test/aplus.js"
+    , "build": "uglifyjs index.js -o promise.min.js -c -m --screw-ie8"
+  },
+  "keywords": [
+    "promise"
+    , "promises-aplus"
+  ],
+  "author": "xiaodongyang@meituan.com",
+  "license": "MIT",
+  "devDependencies": {
+    "promises-aplus-tests": "^2.1.0",
+    "uglifyjs": "^2.4.10"
+  }
+}
