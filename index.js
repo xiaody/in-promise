@@ -7,10 +7,8 @@ function Promise (executor) {
     if (typeof executor !== 'function')
         throw new TypeError('Promise resolver ' + executor + ' is not a function')
 
-    var self = this
-
     // The state and downstreams are stored in `._handler`
-    var handler = self._handler = new Handler
+    var handler = this._handler = new Handler
     try {
         executor(function (x) {
             handler.resolve(x)
@@ -71,7 +69,7 @@ Handler.prototype = {
             return
         }
         if (then) {
-            this.follow(x, then)
+            this.follow(then)
             return
         }
         this.state = 2
@@ -85,12 +83,12 @@ Handler.prototype = {
         this.reason = x
         next(this.errbacks, x)
     }
-    , follow: function (x, then) {
+    , follow: function (then) {
         var self = this
         self.state = 1
         var unlock = 0
         try {
-            then.call(x, function (x) {
+            then(function (x) {
                 self.resolve(x, ++unlock)
             }, function (x) {
                 self.reject(x, ++unlock)
@@ -136,7 +134,7 @@ function getThen (obj) {
     if (!obj || typeof obj !== 'object' && typeof obj !== 'function')
         return false
     var then = obj.then
-    return isFunc(then) && then
+    return isFunc(then) && then.bind(obj)
 }
 
 
