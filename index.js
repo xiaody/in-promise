@@ -81,17 +81,6 @@ Handler.prototype = {
     , reject: function (x, unlock) {
         if (this.state > 1 && unlock !== 1)
             return
-        var then
-        try {
-            then = getThen(x)
-        } catch (e) {
-            this.reject(e)
-            return
-        }
-        if (then) {
-            this.follow(x, then)
-            return
-        }
         this.state = 3
         this.reason = x
         next(this.errbacks, x)
