@@ -2,6 +2,11 @@
     <img src="https://promisesaplus.com/assets/logo-small.png" alt="Promises/A+ logo"
         title="Promises/A+ 1.1 compliant" align="right" />
 </a>
+[![Build Status](https://travis-ci.org/xiaody/in-promise.svg?branch=master)](https://travis-ci.org/xiaody/in-promise)
+[![codecov.io](http://codecov.io/github/xiaody/in-promise/coverage.svg?branch=master)](http://codecov.io/github/xiaody/in-promise?branch=master)
+[![Dependency Status](https://david-dm.org/xiaody/in-promise.svg)](https://david-dm.org/xiaody/in-promise)
+[![devDependency Status](https://david-dm.org/xiaody/in-promise/dev-status.svg)](https://david-dm.org/xiaody/in-promise#info=devDependencies)
+
 in-promise is a minimal Promises/A+ implementation for browsers.
 Less than 700 bytes (gzip).
 
