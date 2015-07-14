@@ -59,13 +59,13 @@ Handler.prototype = {
             next(errback, this.reason)
     }
     , resolve: function (x, unlock) {
-        if (this.state > 1 && unlock !== 1)
+        if (this.state && unlock !== 1)
             return
         var then
         try {
             then = getThen(x)
         } catch (e) {
-            this.reject(e)
+            this.reject(e, 1)
             return
         }
         if (then) {
@@ -77,7 +77,7 @@ Handler.prototype = {
         next(this.callbacks, x)
     }
     , reject: function (x, unlock) {
-        if (this.state > 1 && unlock !== 1)
+        if (this.state && unlock !== 1)
             return
         this.state = 3
         this.reason = x

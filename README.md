@@ -7,14 +7,14 @@ Less than 700 bytes (gzip).
 
 
 # API
-It is really _minimal_, only provides a `Promise#then` method:
+It is really _minimal_, and only provides a `Promise#then` method:
 
 ```js
 var p1 = new Promise(function (res, rej) {
   setTimeout(function () {
     res('Hello Promise')
   }, 100)
-}
+})
 var p2 = p1.then(function (value) {
   console.log(value) // Hello Promise
 })
