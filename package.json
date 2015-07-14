@@ -1,11 +1,11 @@
 {
   "name": "in-promise",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "A minimal Promise/A+ implementation for browsers",
   "main": "index.js",
   "scripts": {
-    "test": "node test/test.js && promises-aplus-tests test/aplus.js"
-    , "cover": "istanbul cover npm test"
+    "test": "node test/test.js"
+    , "cover": "istanbul cover test/test.js"
     , "build": "uglifyjs index.js -o promise.min.js -c -m --screw-ie8"
   },
   "keywords": [
