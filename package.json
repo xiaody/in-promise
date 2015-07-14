@@ -4,7 +4,8 @@
   "description": "A minimal Promise/A+ implementation for browsers",
   "main": "index.js",
   "scripts": {
-    "test": "istanbul cover promises-aplus-tests test/aplus.js"
+    "test": "promises-aplus-tests test/aplus.js"
+    , "cover": "istanbul cover npm test"
     , "build": "uglifyjs index.js -o promise.min.js -c -m --screw-ie8"
   },
   "keywords": [
