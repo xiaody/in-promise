@@ -1,6 +1,6 @@
 {
   "name": "in-promise",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "A minimal Promise/A+ implementation for browsers",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,12 @@
     , "promises-aplus"
   ],
   "author": "xiaodongyang@meituan.com",
+  "homepage": "https://github.com/xiaody/in-promise",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xiaody/in-promise.git"
+  },
   "devDependencies": {
     "promises-aplus-tests": "^2.1.0",
     "uglifyjs": "^2.4.10"

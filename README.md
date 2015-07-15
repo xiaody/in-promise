@@ -8,7 +8,7 @@
 [![Dependency Status](https://david-dm.org/xiaody/in-promise.svg)](https://david-dm.org/xiaody/in-promise)
 [![devDependency Status](https://david-dm.org/xiaody/in-promise/dev-status.svg)](https://david-dm.org/xiaody/in-promise#info=devDependencies)
 
-in-promise is a minimal Promises/A+ implementation for browsers.
+in-promise is a minimal Promises/A+ implementation for mobile browsers.
 Less than 700 bytes (gzip).
 
 
