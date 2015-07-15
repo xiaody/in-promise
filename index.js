@@ -3,7 +3,7 @@
 
 function Promise (executor) {
     if (!(this instanceof Promise))
-        throw new TypeError('Promise is intended to be called as a constructor')
+        throw new TypeError('Promise shall be called as a constructor')
     if (typeof executor !== 'function')
         throw new TypeError('Promise resolver ' + executor + ' is not a function')
 
@@ -88,6 +88,7 @@ Handler.prototype = {
         self.state = 1
         var unlock = 0
         try {
+            // a foreign `then` can be evil, be careful
             then(function (x) {
                 self.resolve(x, ++unlock)
             }, function (x) {
@@ -131,7 +132,7 @@ function isFunc (f) {
 }
 
 function getThen (obj) {
-    if (!obj || typeof obj !== 'object' && typeof obj !== 'function')
+    if (!obj || typeof obj !== 'object' && !isFunc(obj))
         return false
     var then = obj.then
     return isFunc(then) && then.bind(obj)
