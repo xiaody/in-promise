@@ -1,7 +1,7 @@
 {
   "name": "in-promise",
   "main": "index.js",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "authors": [
     "xiaodongyang <xiaodongyang@meituan.com>"
   ],
@@ -16,6 +16,7 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "coverage"
   ]
 }
