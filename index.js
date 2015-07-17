@@ -1,4 +1,4 @@
-/*jshint asi:true, laxcomma:true, supernew:true*/
+/*jshint asi:true, laxcomma:true, supernew:true, unused:true*/
 ;(function (global) { 'use strict'
 
 function Promise (executor) {
@@ -51,12 +51,14 @@ function Handler () {
 Handler.prototype = {
     constructor: Handler
     , then: function (callback, errback) {
-        this.callbacks.push(callback)
-        this.errbacks.push(errback)
-        if (this.state === 2)
+        if (this.state === 2) {
             next(callback, this.result)
-        if (this.state === 3)
+        } else if (this.state === 3) {
             next(errback, this.reason)
+        } else {
+            this.callbacks.push(callback)
+            this.errbacks.push(errback)
+        }
     }
     , resolve: function (x, unlock) {
         if (this.state && unlock !== 1)
@@ -125,6 +127,7 @@ function next (queue, value) {
             fn.call(undefined, value)
         })
     })
+    queue.length = 0
 }
 
 function isFunc (f) {
