@@ -4,7 +4,3 @@ node_js:
   - "0.11"
   - "0.10"
   - "iojs"
-before_install:
-  sudo pip install codecov
-after_success:
-  codecov
