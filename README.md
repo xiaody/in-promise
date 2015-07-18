@@ -29,3 +29,8 @@ var p2 = p1.then(function (value) {
 
 This is no `Promise#catch` or `Promise.all` or `Promise.race` or ...
 Just `Promise#then`.
+
+For a polyfill for ES6 Promise, check the [es6 branch].
+
+
+[es6 branch]: https://github.com/xiaody/in-promise/tree/es6
