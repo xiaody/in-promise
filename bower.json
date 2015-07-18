@@ -1,14 +1,15 @@
 {
-  "name": "in-promise",
+  "name": "in-promise-es6",
   "main": "index.js",
   "version": "0.7.0",
   "authors": [
     "xiaodongyang <xiaodongyang@meituan.com>"
   ],
-  "description": "A minimal Promise/A+ implementation",
+  "description": "A minimal polyfill for ES6 Promise",
   "keywords": [
     "promise",
-    "promises-aplus"
+    "promises-aplus",
+    "es6-promise"
   ],
   "license": "MIT",
   "ignore": [

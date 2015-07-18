@@ -1,7 +1,7 @@
 {
-  "name": "in-promise",
+  "name": "in-promise-es6",
   "version": "0.7.0",
-  "description": "A minimal Promise/A+ implementation for browsers",
+  "description": "A minimal polyfill for ES6 Promise",
   "main": "index.js",
   "scripts": {
     "test": "node test/test.js",
@@ -10,7 +10,8 @@
   },
   "keywords": [
     "promise",
-    "promises-aplus"
+    "promises-aplus",
+    "es6-promise"
   ],
   "author": "xiaodongyang@meituan.com",
   "homepage": "https://github.com/xiaody/in-promise",
