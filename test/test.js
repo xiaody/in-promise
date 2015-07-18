@@ -1,24 +1,18 @@
 'use strict'
 
 var Promise = require('../')
-    , assert = require('assert')
-    , noop = function () {}
-    , throwE = function () { throw new Error }
     , promisesAplusTests = require('promises-aplus-tests')
-    , promiseAplusAdapter = require('./aplus')
+    , promisesES6Tests = require("promises-es6-tests")
+    , promiseAdapter = require('./adapter')
 
-assert.throws(function () {
-    Promise(noop)
-}, TypeError)
 
-assert.throws(function () {
-    new Promise(5)
-}, TypeError)
-
-assert.doesNotThrow(function () {
-    new Promise(throwE)
-})
-
-promisesAplusTests(promiseAplusAdapter, function (err) {
+promisesAplusTests(promiseAdapter, function (err) {
     // All done; output is in the console. Or check `err` for number of failures.
+    if (err)
+        return
+
+    promisesES6Tests(promiseAdapter, function (err) {
+        // tests complete; output to console; `err` is number of failures
+    });
 });
+

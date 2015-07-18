@@ -14,5 +14,11 @@ module.exports = {
             , resolve: resolve
             , reject: reject
         }
+    },
+    defineGlobalPromise: function (scope) {
+        scope.Promise = Promise
+    },
+    removeGlobalPromise: function (scope) {
+        delete scope.Promise
     }
 }
