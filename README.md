@@ -9,12 +9,12 @@
 [![Dependency Status](https://david-dm.org/xiaody/in-promise.svg)](https://david-dm.org/xiaody/in-promise)
 [![devDependency Status](https://david-dm.org/xiaody/in-promise/dev-status.svg)](https://david-dm.org/xiaody/in-promise#info=devDependencies)
 
-in-promise is a minimal Promises/A+ implementation for browsers(IE9+, Android 4.0+ and modern browsers).
-Less than 700 bytes (gzip).
+in-promise is a minimal Promises/A+ implementation for browsers.
+~700 bytes (gzip).
 
 
 # API
-It is really _minimal_, and only provides a `Promise#then` method:
+It is really _minimal_, and only provides a ES6 style Promise constructor plus a Promises/A+ compatible `Promise#then` method:
 
 ```js
 var p1 = new Promise(function (res, rej) {

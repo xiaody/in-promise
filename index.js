@@ -1,5 +1,5 @@
-/*jshint asi:true, laxcomma:true, supernew:true, unused:true*/
-;(function (global) { 'use strict'
+/*jshint asi:true, laxcomma:true, supernew:true, unused:true, loopfunc:true*/
+;(function (global, undefined) { 'use strict'
 
 function Promise (executor) {
     if (!(this instanceof Promise))
@@ -25,7 +25,7 @@ Promise.prototype.then = function (onFulfilled, onRejected) {
         resolve = res
         reject = rej
     })
-    this._handler.then(
+    this._handler.then( // Spec #2.2.7
         isFunc(onFulfilled) ? wrapCallback(promise, resolve, reject, onFulfilled) : resolve,
         isFunc(onRejected) ? wrapCallback(promise, resolve, reject, onRejected) : reject
     )
@@ -86,11 +86,11 @@ Handler.prototype = {
         next(this.errbacks, x)
     }
     , follow: function (then) {
-        var self = this
-        self.state = 1
-        var unlock = 0
+        this.state = 1
+        var self = this,
+            unlock = 0
+        // A foreign `then` can be evil, be careful
         try {
-            // a foreign `then` can be evil, be careful
             then(function (x) {
                 self.resolve(x, ++unlock)
             }, function (x) {
@@ -122,11 +122,13 @@ function wrapCallback (promise, resolve, reject, fn) {
 function next (queue, value) {
     if (isFunc(queue))
         queue = [queue]
-    queue.forEach(function (fn) {
-        setTimeout(function () {
-            fn.call(undefined, value)
-        })
-    })
+    for (var i = 0, len = queue.length; i < len; i++) {
+        (function (fn) {
+            setTimeout(function () {
+                fn.call(undefined, value)
+            }, 0)
+        })(queue[i])
+    }
     queue.length = 0
 }
 
@@ -138,11 +140,13 @@ function getThen (obj) {
     if (!obj || typeof obj !== 'object' && !isFunc(obj))
         return false
     var then = obj.then
-    return isFunc(then) && then.bind(obj)
+    return isFunc(then) && function (onFulfilled, onRejected) {
+        then.call(obj, onFulfilled, onRejected)
+    }
 }
 
 
-if (typeof module !== 'undefined')
+if (typeof module == 'object')
     module.exports = Promise
 else
     global.Promise = Promise

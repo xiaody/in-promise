@@ -4,13 +4,13 @@
   "description": "A minimal Promise/A+ implementation for browsers",
   "main": "index.js",
   "scripts": {
-    "test": "node test/test.js"
-    , "cover": "istanbul cover test/test.js"
-    , "build": "uglifyjs index.js -o promise.min.js -c -m --screw-ie8"
+    "test": "node test/test.js",
+    "cover": "istanbul cover test/test.js",
+    "build": "uglifyjs index.js -o promise.min.js -c -m --screw-ie8"
   },
   "keywords": [
-    "promise"
-    , "promises-aplus"
+    "promise",
+    "promises-aplus"
   ],
   "author": "xiaodongyang@meituan.com",
   "homepage": "https://github.com/xiaody/in-promise",
