@@ -1,7 +1,7 @@
 {
   "name": "in-promise",
   "main": "index.js",
-  "version": "0.6.3",
+  "version": "0.7.0",
   "authors": [
     "xiaodongyang <xiaodongyang@meituan.com>"
   ],
