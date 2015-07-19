@@ -1,8 +1,95 @@
 /*jshint asi:true, laxcomma:true, supernew:true, unused:true, loopfunc:true*/
-;(function (global, undefined) { 'use strict'
+;(function (global, Promise, undefined) { 'use strict'
+
+Promise.prototype['catch'] = function (onRejected) {
+    return this.then(undefined, onRejected)
+}
+var innerPromise = {
+    resolve: function (value) {
+        if (value instanceof Promise)
+            return value
+        return new this(function (res, rej) {
+            res(value)
+        })
+    }
+    , reject: function (reason) {
+        return new this(function (res, rej) {
+            rej(reason)
+        })
+    }
+    , all: function (array) {
+        return new this(function (resolve, reject) {
+            if (!isArray(array))
+                reject(new TypeError)
+            var pendingCount = array.length,
+                results = []
+            if (!pendingCount)
+                return void resolve(results)
+            for (var i = 0, len = array.length; i < len; i++) {
+                (function (i) {
+                    innerPromise.resolve(array[i]).then(function (result) {
+                        results[i] = result
+                        if (!--pendingCount)
+                            resolve(results)
+                    }, function (reason) {
+                        reject(reason)
+                    })
+                })(i)
+            }
+        })
+    }
+    , race: function (array) {
+        return new this(function (resolve, reject) {
+            if (!isArray(array))
+                reject(new TypeError)
+            for (var i = 0, len = array.length; i < len; i++) {
+                innerPromise.resolve(array[i]).then(function (result) {
+                    resolve(result)
+                }, function (reason) {
+                    reject(reason)
+                })
+            }
+        })
+    }
+}
+
+var methods = ['resolve', 'reject', 'all', 'race']
+for (var i = 0, len = methods.length, name; i < len; i++) {
+    (function (name) {
+        Promise[name] = function (x) {
+            if (typeof this !== 'function') {
+                throw new TypeError
+            } else {
+                new this(function (res, rej) {
+                    if (typeof res !== 'function' || typeof rej !== 'function')
+                        throw new TypeError
+                })
+                return innerPromise[name].call(this, x)
+            }
+        }
+    })(methods[i])
+}
+
+function isArray (x) {
+    return ({}).toString.call(x) === '[object Array]'
+}
+
+if (typeof module == 'object')
+    module.exports = Promise
+else if (!global.Promise)
+    global.Promise = Promise
+
+})(
+this,
+/**
+ * ES6 style Promise constructor and Promises/A+ Promise#then method
+ */
+(function (global, undefined) { 'use strict'
 
 function Promise (executor) {
     if (!(this instanceof Promise))
+        throw new TypeError('Promise shall be called as a constructor')
+    else if (this._handler instanceof Handler)
         throw new TypeError('Promise shall be called as a constructor')
     if (typeof executor !== 'function')
         throw new TypeError('Promise resolver ' + executor + ' is not a function')
@@ -145,10 +232,8 @@ function getThen (obj) {
     }
 }
 
+return Promise
 
-if (typeof module == 'object')
-    module.exports = Promise
-else
-    global.Promise = Promise
+})(this)
 
-})(this);
+);
