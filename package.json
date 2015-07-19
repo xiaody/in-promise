@@ -1,12 +1,12 @@
 {
   "name": "in-promise-es6",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "A minimal polyfill for ES6 Promise",
   "main": "index.js",
   "scripts": {
     "test": "node test/test.js",
     "cover": "istanbul cover test/test.js",
-    "build": "uglifyjs index.js -o promise.min.js -c -m --screw-ie8"
+    "build": "uglifyjs index.js -o promise.min.js -c -m"
   },
   "keywords": [
     "promise",

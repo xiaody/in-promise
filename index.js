@@ -8,7 +8,7 @@ var innerPromise = {
     resolve: function (value) {
         if (value instanceof Promise)
             return value
-        return new this(function (res, rej) {
+        return new this(function (res) {
             res(value)
         })
     }
@@ -54,7 +54,7 @@ var innerPromise = {
 }
 
 var methods = ['resolve', 'reject', 'all', 'race']
-for (var i = 0, len = methods.length, name; i < len; i++) {
+for (var i = 0, len = methods.length; i < len; i++) {
     (function (name) {
         Promise[name] = function (x) {
             if (typeof this !== 'function') {
