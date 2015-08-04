@@ -2,7 +2,7 @@
 ;(function (global, undefined) { 'use strict'
 
 function Promise (executor) {
-    if (!(this instanceof Promise))
+    if (!(this instanceof Promise) || this._handler)
         throw new TypeError('Promise shall be called as a constructor')
     if (typeof executor !== 'function')
         throw new TypeError('Promise resolver ' + executor + ' is not a function')
