@@ -1,6 +1,6 @@
 {
   "name": "in-promise-es6",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "A minimal polyfill for ES6 Promise",
   "main": "index.js",
   "scripts": {

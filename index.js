@@ -87,9 +87,7 @@ this,
 (function (global, undefined) { 'use strict'
 
 function Promise (executor) {
-    if (!(this instanceof Promise))
-        throw new TypeError('Promise shall be called as a constructor')
-    else if (this._handler instanceof Handler)
+    if (!(this instanceof Promise) || this._handler)
         throw new TypeError('Promise shall be called as a constructor')
     if (typeof executor !== 'function')
         throw new TypeError('Promise resolver ' + executor + ' is not a function')
@@ -147,14 +145,14 @@ Handler.prototype = {
             this.errbacks.push(errback)
         }
     }
-    , resolve: function (x, unlock) {
-        if (this.state && unlock !== 1)
+    , resolve: function (x) {
+        if (this.state > 1)
             return
         var then
         try {
             then = getThen(x)
         } catch (e) {
-            this.reject(e, 1)
+            this.reject(e)
             return
         }
         if (then) {
@@ -165,8 +163,8 @@ Handler.prototype = {
         this.result = x
         next(this.callbacks, x)
     }
-    , reject: function (x, unlock) {
-        if (this.state && unlock !== 1)
+    , reject: function (x) {
+        if (this.state > 1)
             return
         this.state = 3
         this.reason = x
@@ -175,16 +173,22 @@ Handler.prototype = {
     , follow: function (then) {
         this.state = 1
         var self = this,
-            unlock = 0
+            canUnlock = true
         // A foreign `then` can be evil, be careful
         try {
             then(function (x) {
-                self.resolve(x, ++unlock)
+                if (canUnlock)
+                    self.resolve(x)
+                canUnlock = false
             }, function (x) {
-                self.reject(x, ++unlock)
+                if (canUnlock)
+                    self.reject(x)
+                canUnlock = false
             })
         } catch (e) {
-            self.reject(e, ++unlock)
+            if (canUnlock)
+                self.reject(e)
+            canUnlock = false
         }
     }
 }

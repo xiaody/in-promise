@@ -1,0 +1,2 @@
+coverage/* -diff
+*.min.js -diff
