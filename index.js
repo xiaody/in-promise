@@ -60,14 +60,14 @@ Handler.prototype = {
             this.errbacks.push(errback)
         }
     }
-    , resolve: function (x, unlock) {
-        if (this.state && unlock !== 1)
+    , resolve: function (x) {
+        if (this.state > 1)
             return
         var then
         try {
             then = getThen(x)
         } catch (e) {
-            this.reject(e, 1)
+            this.reject(e)
             return
         }
         if (then) {
@@ -78,8 +78,8 @@ Handler.prototype = {
         this.result = x
         next(this.callbacks, x)
     }
-    , reject: function (x, unlock) {
-        if (this.state && unlock !== 1)
+    , reject: function (x) {
+        if (this.state > 1)
             return
         this.state = 3
         this.reason = x
@@ -88,16 +88,22 @@ Handler.prototype = {
     , follow: function (then) {
         this.state = 1
         var self = this,
-            unlock = 0
+            canUnlock = true
         // A foreign `then` can be evil, be careful
         try {
             then(function (x) {
-                self.resolve(x, ++unlock)
+                if (canUnlock)
+                    self.resolve(x)
+                canUnlock = false
             }, function (x) {
-                self.reject(x, ++unlock)
+                if (canUnlock)
+                    self.reject(x)
+                canUnlock = false
             })
         } catch (e) {
-            self.reject(e, ++unlock)
+            if (canUnlock)
+                self.reject(e)
+            canUnlock = false
         }
     }
 }
