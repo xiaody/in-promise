@@ -2,6 +2,7 @@
     <img src="https://promisesaplus.com/assets/logo-small.png" alt="Promises/A+ logo"
         title="Promises/A+ 1.1 compliant" align="right" />
 </a>
+
 [![npm version](https://badge.fury.io/js/in-promise.svg)](http://badge.fury.io/js/in-promise)
 [![Build Status](https://travis-ci.org/xiaody/in-promise.svg?branch=master)](https://travis-ci.org/xiaody/in-promise)
 [![Codacy Badge](https://www.codacy.com/project/badge/bbeaa5c6e1964549b08f6ece3415fc76)](https://www.codacy.com/app/youyounaihe/in-promise)
